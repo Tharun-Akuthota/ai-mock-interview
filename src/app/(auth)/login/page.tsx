@@ -4,7 +4,7 @@ export default function LoginPage() {
       <div className="bg-gray-900 p-15 rounded-2xl space-y-4">
         <div className="bg-white p-5">
           <h2 className="text-2xl font-bold mb-6 text-center">LOGIN</h2>
-          <p>Use your email and password to log in</p>
+          <p>Use your email and password to Sign in</p>
         </div>
         <form className="space-y-4">
           <div>
