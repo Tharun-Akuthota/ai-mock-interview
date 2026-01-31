@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-800">
@@ -34,9 +36,9 @@ export default function LoginPage() {
         </form>
         <p className="text-sm text-center mt-4">
           Don&apos;t have an account?{" "}
-          <a href="/register" className="text-blue-500 hover:underline">
+          <Link href="/register" className="text-blue-500 hover:underline">
             Register
-          </a>{" "}
+          </Link>{" "}
           for free
         </p>
       </div>

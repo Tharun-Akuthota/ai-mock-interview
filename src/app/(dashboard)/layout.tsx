@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 export default function DashboardLayout({
@@ -12,18 +13,18 @@ export default function DashboardLayout({
         <h2 className="text-xl font-bold mb-6">AI Interview</h2>
 
         <nav className="space-y-3">
-          <a href="/dashboard" className="block hover:text-blue-400">
+          <Link href="/dashboard" className="block hover:text-blue-400">
             Dashboard
-          </a>
-          <a href="/interview/start" className="block hover:text-blue-400">
+          </Link>
+          <Link href="/interview/start" className="block hover:text-blue-400">
             Start Interview
-          </a>
-          <a href="/mcq" className="block hover:text-blue-400">
+          </Link>
+          <Link href="/mcq" className="block hover:text-blue-400">
             MCQs
-          </a>
-          <a href="/history" className="block hover:text-blue-400">
+          </Link>
+          <Link href="/history" className="block hover:text-blue-400">
             History
-          </a>
+          </Link>
         </nav>
       </aside>
 
