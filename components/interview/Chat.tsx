@@ -1,75 +1,88 @@
 "use client";
 
 import styles from "@/styles/chat.module.css";
+import { api } from "../../lib/api";
 import { useEffect, useRef, useState } from "react";
 
 type Message = {
-  id: number;
   sender: "user" | "ai";
   text: string;
   timestamp: string;
 };
 
-export default function Chat() {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: 1,
-      sender: "ai",
-      text: "Welcome! Let’s start your mock interview. Tell me about yourself.",
-      timestamp: new Date().toLocaleTimeString(),
-    },
-  ]);
+export default function Chat({ interview }: { interview: any }) {
+  const [messages, setMessages] = useState<Message[]>(interview.messages);
 
   const [isTyping, setIsTyping] = useState(false);
   const [input, setInput] = useState("");
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    setMessages(interview.messages);
+  }, [interview]);
 
   // Auto-scroll to bottom
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!input.trim() || isTyping) return;
-
-    const userMessage: Message = {
-      id: Date.now(),
-      sender: "user",
-      text: input,
-      timestamp: new Date().toLocaleTimeString(),
-    };
-
-    setMessages((prev) => [...prev, userMessage]);
-    setInput("");
     setIsTyping(true);
 
+    // const userMessage: Message = {
+    //   id: Date.now(),
+    //   sender: "user",
+    //   text: input,
+    //   timestamp: new Date().toLocaleTimeString(),
+    // };
+
+    // setMessages((prev) => [...prev, userMessage]);
+    // setInput("");
+    // setIsTyping(true);
+
     // Simulate AI reply
-    setTimeout(() => {
-      const aiMessage: Message = {
-        id: Date.now() + 1,
-        sender: "ai",
-        text: "That’s interesting. Can you explain one challenging project you worked on?",
-        timestamp: new Date().toLocaleTimeString(),
-      };
+    //   setTimeout(() => {
+    //     const aiMessage: Message = {
+    //       id: Date.now() + 1,
+    //       sender: "ai",
+    //       text: "That’s interesting. Can you explain one challenging project you worked on?",
+    //       timestamp: new Date().toLocaleTimeString(),
+    //     };
 
-      setMessages((prev) => [...prev, aiMessage]);
+    //     setMessages((prev) => [...prev, aiMessage]);
+    //     setIsTyping(false);
+    //   }, 1500);
+    // };
+
+    try {
+      const res = await api.post("/interview/message", {
+        interviewId: interview._id,
+        message: input,
+      });
+
+      setMessages(res.data.interview.messages);
+      setInput("");
+    } catch (error) {
+      console.error("Failed to send message");
+    } finally {
       setIsTyping(false);
-    }, 1500);
+    }
   };
-
   return (
     <div className={styles.chatContainer}>
       <div className={styles.messages}>
-        {messages.map((msg) => (
+        {messages.map((msg, index) => (
           <div
-            key={msg.id}
+            key={index}
             className={`${styles.message} ${
               msg.sender === "user" ? styles.user : styles.ai
             }`}
           >
             <p>{msg.text}</p>
             <span className="text-xs opacity-70 block mt-1">
-              {msg.timestamp}
+              {/* {msg.timestamp} */}
+              {new Date(msg.timestamp).toLocaleTimeString()}
             </span>
           </div>
         ))}

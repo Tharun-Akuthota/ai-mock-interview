@@ -11,5 +11,5 @@ export const useAuthGuard = () => {
     if (!token) {
       router.push("/login");
     }
-  }, []);
+  }, [router]);
 };
