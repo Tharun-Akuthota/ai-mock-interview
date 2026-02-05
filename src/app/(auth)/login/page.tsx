@@ -4,6 +4,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "../../../../lib/api";
+import { IoCloseCircleOutline } from "react-icons/io5";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -47,6 +48,8 @@ export default function LoginPage() {
             <label className="block text-sm font-medium mb-1">Email</label>
             <input
               type="email"
+              name="email"
+              autoComplete="username"
               value={email}
               placeholder="you@example.com"
               onChange={(e) => setEmail(e.target.value)}
@@ -58,6 +61,8 @@ export default function LoginPage() {
             <label className="block text-sm font-medium mb-1">Password</label>
             <input
               type="password"
+              name="password"
+              autoComplete="current-password"
               value={password}
               placeholder="••••••••"
               onChange={(e) => setPassword(e.target.value)}
@@ -65,7 +70,12 @@ export default function LoginPage() {
             />
           </div>
 
-          {error && <p className="text-red-500 text-sm">{error}</p>}
+          {error && (
+            <span className="flex">
+              <IoCloseCircleOutline className="text-red-500 w-5 h-5" />
+              <p className="text-red-500 text-sm">{error}</p>
+            </span>
+          )}
 
           <button
             type="submit"

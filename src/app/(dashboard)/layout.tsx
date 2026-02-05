@@ -1,11 +1,15 @@
+"use client";
+
 import Link from "next/link";
 import React from "react";
+import { useAuthGuard } from "@/hooks/useAuthGuard";
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  useAuthGuard();
   return (
     <div className="min-h-screen flex">
       {/* Sidebar */}
