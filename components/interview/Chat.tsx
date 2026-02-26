@@ -61,10 +61,12 @@ export default function Chat({ interview }: { interview: any }) {
         message: input,
       });
 
+      console.log("Interview ID: ", interview._id);
+
       setMessages(res.data.interview.messages);
       setInput("");
     } catch (error) {
-      console.error("Failed to send message");
+      console.log("Failed to send message", error);
     } finally {
       setIsTyping(false);
     }
