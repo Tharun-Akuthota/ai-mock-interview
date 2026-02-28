@@ -71,6 +71,12 @@ export default function Chat({ interview }: { interview: any }) {
       setIsTyping(false);
     }
   };
+
+  const handleEndInterview = async () => {
+    const res = await api.post(`/interview/${interview.id}/complete`);
+    alert("Interview completed!!!");
+  };
+
   return (
     <div className={styles.chatContainer}>
       <div className={styles.messages}>
@@ -114,6 +120,13 @@ export default function Chat({ interview }: { interview: any }) {
           className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50"
         >
           Send
+        </button>
+
+        <button
+          onClick={handleEndInterview}
+          className="bg-red-600 text-white px-4 py-2 rounded"
+        >
+          End Interview
         </button>
       </div>
     </div>

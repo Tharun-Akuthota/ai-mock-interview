@@ -17,7 +17,7 @@ export default function InterviewPage() {
         const res = await api.get(`/interview/${id}`);
         setInterview(res.data.interview);
       } catch (error) {
-        console.error("Failed to load interview");
+        console.error("Failed to load interview", error);
       } finally {
         setLoading(false);
       }
